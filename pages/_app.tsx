@@ -1,7 +1,15 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps } from 'next/app';
+import 'tailwindcss/tailwind.css';
+import Navbar from './../components/Navbar';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <>
+      <Navbar />
+      <div className="container mx-auto py-10">
+        <Component {...pageProps} />
+      </div>
+    </>
+  );
 }
-export default MyApp
+export default MyApp;
