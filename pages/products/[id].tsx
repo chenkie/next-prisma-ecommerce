@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import ProductCard from '../../components/ProductCard';
 import prisma from '../../db';
+import Reviews from './../../components/Reviews';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
@@ -31,7 +32,14 @@ const Products = (props: ProductsProps) => {
         <title>{props.product.name} | Threadz</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <ProductCard product={props.product} />
+      <div className="grid grid-cols-3 gap-10">
+        <section className="col-span-2">
+          <ProductCard product={props.product} usePurchaseButton />
+        </section>
+        <section className="w-3/4">
+          <Reviews productId={props.product.id} />
+        </section>
+      </div>
     </div>
   );
 };
