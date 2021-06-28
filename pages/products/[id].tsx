@@ -1,8 +1,10 @@
-import { Product } from '@prisma/client';
+import { Product, Review } from '@prisma/client';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
+import { useState } from 'react';
 import ProductCard from '../../components/ProductCard';
 import prisma from '../../db';
+import { ProductWithReviewCount } from './../';
 import Reviews from './../../components/Reviews';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -13,19 +15,24 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       id: {
         equals: id as string
       }
+    },
+    include: {
+      reviews: true
     }
   });
 
   return {
-    props: { product }
+    props: { product, reviews: product ? product.reviews : [] }
   };
 };
 
 interface ProductsProps {
-  product: Product;
+  product: Product & ProductWithReviewCount;
+  reviews: Review[];
 }
 
 const Products = (props: ProductsProps) => {
+  const [reviews, setReviews] = useState(props.reviews);
   return (
     <div>
       <Head>
@@ -37,7 +44,13 @@ const Products = (props: ProductsProps) => {
           <ProductCard product={props.product} usePurchaseButton />
         </section>
         <section className="w-3/4">
-          <Reviews productId={props.product.id} />
+          <Reviews
+            reviews={reviews}
+            productId={props.product.id}
+            onAddReview={(review: Review) => {
+              setReviews([...reviews, review]);
+            }}
+          />
         </section>
       </div>
     </div>

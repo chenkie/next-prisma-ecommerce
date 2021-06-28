@@ -5,7 +5,14 @@ import prisma from './../db';
 
 export async function getServerSideProps() {
   try {
-    const products = await prisma.product.findMany();
+    const products = await prisma.product.findMany({
+      include: {
+        _count: {
+          select: { reviews: true }
+        }
+      }
+    });
+
     return {
       props: { products }
     };
@@ -14,8 +21,10 @@ export async function getServerSideProps() {
   }
 }
 
+export type ProductWithReviewCount = Product & { _count: { reviews: number } };
+
 interface HomeProps {
-  products: Product[];
+  products: ProductWithReviewCount[];
 }
 
 export default function Home(props: HomeProps) {

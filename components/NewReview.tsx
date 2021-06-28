@@ -1,8 +1,9 @@
-import Button from './Button';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import StarIcon from './StarIcon';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Review } from '@prisma/client';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import Button from './Button';
+import StarIconButton from './StarIconButton';
 
 const defaultValues = {
   text: '',
@@ -21,6 +22,7 @@ type Inputs = {
 
 interface NewReviewProps {
   productId: string;
+  onAddReview: (review: Review) => void;
 }
 
 const NewReview = (props: NewReviewProps) => {
@@ -48,6 +50,8 @@ const NewReview = (props: NewReviewProps) => {
       });
       const res = await req.json();
 
+      props.onAddReview(res);
+
       reset();
     } catch (err) {
       console.log(err);
@@ -55,11 +59,12 @@ const NewReview = (props: NewReviewProps) => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <section className="mb-6">
+      <p className="font-bold text-gray-600 text-xl">Add a Review</p>
+      <section className="mt-2 mb-6">
         <label className="text-gray-600 text-sm">Rating</label>
         <div className="grid grid-cols-5 gap-1 w-32 my-2">
           {Array.from(Array(5)).map((value: undefined, i: number) => (
-            <StarIcon
+            <StarIconButton
               key={i}
               filled={watch('rating') >= i + 1}
               onClick={() => setValue('rating', i + 1)}

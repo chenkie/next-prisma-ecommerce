@@ -1,0 +1,20 @@
+[
+  {
+    "name": "High-Top Shoes",
+    "description": "These are sick kicks",
+    "image": "https://i.imgur.com/pVzDA9f.jpg",
+    "price": 15000
+  },
+  {
+    "name": "Space Shirt",
+    "description": "Out of this world top",
+    "image": "https://i.imgur.com/FYvknAY.jpg",
+    "price": 2000
+  },
+  {
+    "name": "Cargo Shorts",
+    "description": "Tons of pockets",
+    "image": "https://i.imgur.com/Bxzacyo.png",
+    "price": 7500
+  }
+]

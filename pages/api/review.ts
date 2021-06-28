@@ -1,19 +1,41 @@
+import { Review } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from './../../db';
 
-type SuccessResponse = {
+type GetSuccessResponse = {
+  reviews: Review[];
+};
+
+type PostSuccessResponse = {
   text: string;
   rating: number;
 };
 
-type ErrorResponse = {
+type PostErrorResponse = {
   message: string;
 };
 
 export default async (
   req: NextApiRequest,
-  res: NextApiResponse<SuccessResponse | ErrorResponse>
+  res: NextApiResponse<
+    GetSuccessResponse | PostSuccessResponse | PostErrorResponse
+  >
 ) => {
+  if (req.method === 'GET') {
+    try {
+      const data = JSON.parse(req.body);
+      const reviews = await prisma.review.findMany({
+        where: {
+          productId: data.productId
+        }
+      });
+
+      console.log('the reviews', reviews);
+      res.status(200).json({ reviews });
+    } catch (err) {
+      res.status(400).json({ message: 'Something went wrong' });
+    }
+  }
   if (req.method === 'POST') {
     try {
       const data = JSON.parse(req.body);
@@ -35,7 +57,6 @@ export default async (
       });
 
       const { text, rating } = review;
-      console.log('the review', review);
       res.status(200).json({ text, rating });
     } catch (err) {
       res.status(400).json({ message: 'Something went wrong' });

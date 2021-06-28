@@ -7,7 +7,8 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["selectRelationCount"]
 }
 
 model User {
@@ -26,7 +27,7 @@ model Product {
   image       String
   price       Int
   users       User[]
-  review      Review[]
+  reviews     Review[]
 }
 
 model Review {
