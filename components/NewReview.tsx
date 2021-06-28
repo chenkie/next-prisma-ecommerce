@@ -44,7 +44,7 @@ const NewReview = (props: NewReviewProps) => {
         method: 'POST',
         body: JSON.stringify({
           ...data,
-          userId: 'ckqb3e48h0000vk9k8jvnw36y',
+          userId: 'ckqh1645j0000yq9k4d4b0qzy',
           productId: props.productId
         })
       });
