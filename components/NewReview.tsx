@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Review } from '@prisma/client';
+import { Review, User } from '@prisma/client';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import Button from './Button';
@@ -22,7 +22,7 @@ type Inputs = {
 
 interface NewReviewProps {
   productId: string;
-  onAddReview: (review: Review) => void;
+  onAddReview: (review: Review & { user: User }) => void;
 }
 
 const NewReview = (props: NewReviewProps) => {
@@ -48,6 +48,7 @@ const NewReview = (props: NewReviewProps) => {
           productId: props.productId
         })
       });
+
       const res = await req.json();
 
       props.onAddReview(res);

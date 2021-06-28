@@ -1,4 +1,4 @@
-import { Product, Review } from '@prisma/client';
+import { Product, Review, User } from '@prisma/client';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useState } from 'react';
@@ -17,7 +17,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     },
     include: {
-      reviews: true
+      reviews: {
+        include: {
+          user: true
+        }
+      }
     }
   });
 
@@ -28,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 interface ProductsProps {
   product: Product & ProductWithReviewCount;
-  reviews: Review[];
+  reviews: (Review & { user: User })[];
 }
 
 const Products = (props: ProductsProps) => {
@@ -47,7 +51,7 @@ const Products = (props: ProductsProps) => {
           <Reviews
             reviews={reviews}
             productId={props.product.id}
-            onAddReview={(review: Review) => {
+            onAddReview={(review: Review & { user: User }) => {
               setReviews([...reviews, review]);
             }}
           />

@@ -1,11 +1,11 @@
-import { Review } from '@prisma/client';
+import { Review, User } from '@prisma/client';
 import NewReview from './NewReview';
 import StarIcon from './StarIcon';
 
 interface ReviewsProps {
   productId: string;
-  reviews: Review[];
-  onAddReview: (review: Review) => void;
+  reviews: (Review & { user: User })[];
+  onAddReview: (review: Review & { user: User }) => void;
 }
 
 const Reviews = (props: ReviewsProps) => {
@@ -22,6 +22,9 @@ const Reviews = (props: ReviewsProps) => {
                 ))}
               </div>
               <p>{review.text}</p>
+              <em className="text-sm">
+                {review.user.firstName} {review.user.lastName}
+              </em>
             </div>
           ))}
         </>
