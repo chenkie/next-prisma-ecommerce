@@ -1,8 +1,9 @@
+import { Product } from '@prisma/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { formatAsCurrency } from './../lib/util';
 interface ProductCardProps {
-  product: any[];
+  product: Product;
   usePurchaseButton?: boolean;
 }
 const ProductCard = (props: ProductCardProps) => {

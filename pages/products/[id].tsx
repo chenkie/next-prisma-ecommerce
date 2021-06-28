@@ -1,8 +1,9 @@
+import { Product } from '@prisma/client';
 import Head from 'next/head';
 import ProductCard from '../../components/ProductCard';
 
 interface ProductsProps {
-  product: any[];
+  product: Product;
 }
 
 const Products = (props: ProductsProps) => {
@@ -14,7 +15,7 @@ const Products = (props: ProductsProps) => {
       </Head>
       <div className="grid grid-cols-3 gap-10">
         <section className="col-span-2">
-          <ProductCard product={[]} usePurchaseButton />
+          <ProductCard product={props.product} usePurchaseButton />
         </section>
         <section className="w-3/4"></section>
       </div>

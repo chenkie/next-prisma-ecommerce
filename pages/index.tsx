@@ -1,3 +1,4 @@
+import { Product } from '@prisma/client';
 import Head from 'next/head';
 import ProductCard from '../components/ProductCard';
 
@@ -8,7 +9,7 @@ export async function getServerSideProps() {
 }
 
 interface HomeProps {
-  products: any[];
+  products: Product[];
 }
 
 export default function Home(props: HomeProps) {
