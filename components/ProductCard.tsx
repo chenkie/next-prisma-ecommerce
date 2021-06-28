@@ -1,13 +1,18 @@
-import { Product } from '@prisma/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { formatAsCurrency } from './../lib/util';
 interface ProductCardProps {
-  product: Product;
+  product: any[];
   usePurchaseButton?: boolean;
 }
 const ProductCard = (props: ProductCardProps) => {
-  const { product } = props;
+  const product = {
+    id: '',
+    image: '',
+    name: '',
+    description: '',
+    price: 0
+  };
 
   return (
     <div className="border-gray-300 border rounded-lg py-8 px-6">
@@ -17,7 +22,7 @@ const ProductCard = (props: ProductCardProps) => {
       <p className="font-bold text-2xl text-gray-700 mt-4">{product.name}</p>
       <p className="text-gray-500 my-4">{product.description}</p>
       <p className="font-bold text-2xl mb-4">
-        {formatAsCurrency(props.product.price)}
+        {formatAsCurrency(product.price)}
       </p>
       {props.usePurchaseButton ? (
         <Link href={`/products/${product.id}`}>

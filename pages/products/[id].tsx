@@ -1,32 +1,20 @@
-import { Product } from '@prisma/client';
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import ProductCard from '../../components/ProductCard';
-import prisma from '../../db';
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  // TODO: get the id from context.query and make a query for the individual `product`.
-  // Return the `product` as props
-
-  return {
-    props: { product: {} }
-  };
-};
 
 interface ProductsProps {
-  product: Product;
+  product: any[];
 }
 
 const Products = (props: ProductsProps) => {
   return (
     <div>
       <Head>
-        <title>{props.product.name} | Threadz</title>
+        <title>Threadz</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="grid grid-cols-3 gap-10">
         <section className="col-span-2">
-          <ProductCard product={props.product} usePurchaseButton />
+          <ProductCard product={[]} usePurchaseButton />
         </section>
         <section className="w-3/4"></section>
       </div>
