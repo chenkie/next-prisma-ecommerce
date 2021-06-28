@@ -5,13 +5,7 @@ import prisma from './../db';
 
 export async function getServerSideProps() {
   try {
-    const products = await prisma.product.findMany({
-      include: {
-        _count: {
-          select: { reviews: true }
-        }
-      }
-    });
+    const products = await prisma.product.findMany();
 
     return {
       props: { products }

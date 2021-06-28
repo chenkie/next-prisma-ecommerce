@@ -40,18 +40,8 @@ const NewReview = (props: NewReviewProps) => {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
-      const req = await fetch('/api/review', {
-        method: 'POST',
-        body: JSON.stringify({
-          ...data,
-          userId: 'ckqh1645j0000yq9k4d4b0qzy',
-          productId: props.productId
-        })
-      });
-
-      const res = await req.json();
-
-      props.onAddReview(res);
+      // TODO: make an API call to the API route for creating a review
+      // Afer the review is created, pass it up in a the onAddReview callback
 
       reset();
     } catch (err) {

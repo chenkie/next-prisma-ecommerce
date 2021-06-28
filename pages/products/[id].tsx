@@ -10,23 +10,17 @@ import Reviews from './../../components/Reviews';
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
 
+  // TODO: include reviews in the query for products
   const product = await prisma.product.findFirst({
     where: {
       id: {
         equals: id as string
       }
-    },
-    include: {
-      reviews: {
-        include: {
-          user: true
-        }
-      }
     }
   });
 
   return {
-    props: { product, reviews: product ? product.reviews : [] }
+    props: { product, reviews: [] }
   };
 };
 
