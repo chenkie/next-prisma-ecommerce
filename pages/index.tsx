@@ -4,15 +4,10 @@ import ProductCard from '../components/ProductCard';
 import prisma from './../db';
 
 export async function getServerSideProps() {
-  try {
-    const products = await prisma.product.findMany();
-
-    return {
-      props: { products }
-    };
-  } catch (err) {
-    console.log(err);
-  }
+  // TODO: query for all `products` and return them as props
+  return {
+    props: { products: [] }
+  };
 }
 
 interface HomeProps {

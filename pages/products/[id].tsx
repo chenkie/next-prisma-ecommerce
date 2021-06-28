@@ -5,18 +5,11 @@ import ProductCard from '../../components/ProductCard';
 import prisma from '../../db';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.query;
-
-  const product = await prisma.product.findFirst({
-    where: {
-      id: {
-        equals: id as string
-      }
-    }
-  });
+  // TODO: get the id from context.query and make a query for the individual `product`.
+  // Return the `product` as props
 
   return {
-    props: { product }
+    props: { product: {} }
   };
 };
 
