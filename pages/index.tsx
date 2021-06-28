@@ -15,10 +15,8 @@ export async function getServerSideProps() {
   }
 }
 
-export type ProductWithReviewCount = Product & { _count: { reviews: number } };
-
 interface HomeProps {
-  products: ProductWithReviewCount[];
+  products: Product[];
 }
 
 export default function Home(props: HomeProps) {

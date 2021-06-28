@@ -1,16 +1,12 @@
-import { Product, Review, User } from '@prisma/client';
+import { Product } from '@prisma/client';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { useState } from 'react';
 import ProductCard from '../../components/ProductCard';
 import prisma from '../../db';
-import { ProductWithReviewCount } from './../';
-import Reviews from './../../components/Reviews';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.query;
 
-  // TODO: include reviews in the query for products
   const product = await prisma.product.findFirst({
     where: {
       id: {
@@ -20,17 +16,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   });
 
   return {
-    props: { product, reviews: [] }
+    props: { product }
   };
 };
 
 interface ProductsProps {
-  product: Product & ProductWithReviewCount;
-  reviews: (Review & { user: User })[];
+  product: Product;
 }
 
 const Products = (props: ProductsProps) => {
-  const [reviews, setReviews] = useState(props.reviews);
   return (
     <div>
       <Head>
@@ -41,15 +35,7 @@ const Products = (props: ProductsProps) => {
         <section className="col-span-2">
           <ProductCard product={props.product} usePurchaseButton />
         </section>
-        <section className="w-3/4">
-          <Reviews
-            reviews={reviews}
-            productId={props.product.id}
-            onAddReview={(review: Review & { user: User }) => {
-              setReviews([...reviews, review]);
-            }}
-          />
-        </section>
+        <section className="w-3/4"></section>
       </div>
     </div>
   );

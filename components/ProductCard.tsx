@@ -1,10 +1,9 @@
+import { Product } from '@prisma/client';
 import Image from 'next/image';
 import Link from 'next/link';
-import pluralize from 'pluralize';
 import { formatAsCurrency } from './../lib/util';
-import { ProductWithReviewCount } from './../pages';
 interface ProductCardProps {
-  product: ProductWithReviewCount;
+  product: Product;
   usePurchaseButton?: boolean;
 }
 const ProductCard = (props: ProductCardProps) => {
@@ -20,14 +19,6 @@ const ProductCard = (props: ProductCardProps) => {
       <p className="font-bold text-2xl mb-4">
         {formatAsCurrency(props.product.price)}
       </p>
-      {props.product._count && (
-        <div className="mb-2">
-          <p>
-            {props.product._count.reviews} Review
-            {pluralize('s', props.product._count.reviews)}
-          </p>
-        </div>
-      )}
       {props.usePurchaseButton ? (
         <Link href={`/products/${product.id}`}>
           <a className="bg-purple-700 text-white rounded-full py-2 px-4 text-sm hover:bg-purple-800 shadow-md">
